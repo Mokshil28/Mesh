@@ -149,6 +149,7 @@ dmypy.json
 
 # Local-only / generated — keep only fall_out overlay videos in git
 .DS_Store
+.vscode/
 /demo_webp_out/
 /demo_out/
 /my_results/
