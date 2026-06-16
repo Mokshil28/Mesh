@@ -147,8 +147,16 @@ dmypy.json
 /checkpoints/
 /data/
 
-# Local-only / generated (keep fall_out + my_results for sharing)
+# Local-only / generated — keep only fall_out overlay videos in git
 .DS_Store
 /demo_webp_out/
+/demo_out/
+/my_results/
+/my_images/
+/example_data/
+/video_out/
+demo.webp
 /fall_out/*_mesh/
+/fall_out/*/signals.json
+/fall_out/*/signals_plot.png
 /professor_deliverables.zip
