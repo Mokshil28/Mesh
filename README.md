@@ -139,27 +139,6 @@ The numbers above are on **simulated** radar. I am collecting **real physical ra
 
 ---
 
-## Offline artifacts (data drive)
-
-Backed up outside git (external drive):
-
-```text
-…/fall down/backup_mmap_10fps/
-  checkpoints/
-    bs32_checkpoint-best.pth
-    bs64_checkpoint-best.pth
-  results_bs32/   # eval_val, eval_test, log.txt, train.log
-  results_bs64/
-```
-
-Prepared dataset:
-
-```text
-…/fall down/radar_data/fall_nonfall_binary_10fps/dataset/{train,val,test}
-```
-
----
-
 ## Repository map
 
 | Path | Role |
@@ -218,33 +197,6 @@ PY
 
 **SAM 3D Body** (mesh recovery, separate from mmAP training) is obtained from Hugging Face after accepting the model terms:  
 [facebook/sam-3d-body-vith](https://huggingface.co/facebook/sam-3d-body-vith) — follow Meta’s [INSTALL / demo instructions](https://github.com/facebookresearch/sam-3d-body) for that stack.
-
-### With the private dataset + checkpoint
-
-```bash
-conda activate mmap-gpu
-cd mmAP-slim
-
-python eval_binary_fall_metrics.py \
-  --checkpoint /path/to/checkpoint-best.pth \
-  --data_root /path/to/fall_nonfall_binary_10fps/dataset \
-  --split test \
-  --output_dir /tmp/mmap_eval_test
-```
-
-```bash
-python run_finetuning_heatmap_wholemodel.py \
-  --config cfgs/finetune/fall_nonfall_binary_10fps.yaml \
-  --data_path /path/to/dataset/train \
-  --eval_data_path /path/to/dataset/val \
-  --nb_classes 2 \
-  --batch_size 64 \
-  --epochs 64 \
-  --class_balance \
-  --class_weight \
-  --output_dir output/finetune/my_run
-```
-
 ---
 
 ## Related docs
