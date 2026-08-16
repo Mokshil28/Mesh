@@ -1,0 +1,60 @@
+import os
+import numpy as np
+from PIL import Image
+
+def npy_loader(path):
+    data = np.load(path)
+    # Ensure data is in uint8 format for image conversion; adjust as necessary for your data range
+    data = (data * 255 / np.max(data)).astype(np.uint8)
+    return Image.fromarray(data)
+
+# Define the base directory
+base_dir = '/data/sxu7/heatmaps/recorded/finetune-norm128/train'  # or 'train' depending on which dataset you want to use
+
+# Define the destination directory
+destination_base_dir = '/data/sxu7/heatmaps/recorded/finetune-norm128-resnet/train'  # Change this to your desired destination path
+
+# Iterate over each modality and activity
+modalities = ['angle', 'doppler', 'range']
+activities = os.listdir(os.path.join(base_dir, 'angle'))  # Assuming all modalities have the same activities
+
+for activity in activities:
+    for file_name in os.listdir(os.path.join(base_dir, 'angle', activity)):
+        if file_name.endswith('.npy'):
+            # Extract base name and number using regex (e.g., bow_ta10 -> bow, 10)
+            base_name, number = file_name.rsplit('_', 1)
+            number = number.split('.')[0][2:]  # Extract the number part after _ta/_td/_tr
+
+            # Construct file paths for each modality
+            angle_file = os.path.join(base_dir, 'angle', activity, f'{base_name}_ta{number}.npy')
+            doppler_file = os.path.join(base_dir, 'doppler', activity, f'{base_name}_td{number}.npy')
+            range_file = os.path.join(base_dir, 'range', activity, f'{base_name}_tr{number}.npy')
+
+            # Check if all files exist
+            if not (os.path.exists(angle_file) and os.path.exists(doppler_file) and os.path.exists(range_file)):
+                print(f"Missing file for {base_name} {number}, skipping...")
+                continue
+
+            # Load original data
+            angle_data = npy_loader(angle_file)
+            doppler_data = npy_loader(doppler_file)
+            range_data = npy_loader(range_file)
+
+            resize = (244, 244)
+            angle_data = angle_data.resize(resize)
+            doppler_data = doppler_data.resize(resize)
+            range_data = range_data.resize(resize)
+
+            # Combine data into a single numpy array (assuming they are compatible)
+            combined_data = np.stack([np.array(angle_data), np.array(doppler_data), np.array(range_data)], axis=0)
+            combined_data = np.transpose(combined_data, (1, 2, 0))
+            combined_image = Image.fromarray(combined_data)
+
+            # Create destination directories if they don't exist
+            os.makedirs(os.path.join(destination_base_dir, activity), exist_ok=True)
+
+            # Save combined image
+            combined_image_path = os.path.join(destination_base_dir, activity, f'{base_name}_combined_{number}.png')
+            combined_image.save(combined_image_path)
+
+            print(f"Combined image saved to {combined_image_path}")

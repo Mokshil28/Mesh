@@ -1,0 +1,58 @@
+# --- Environments ---
+.venv/
+.venv-heatmap/
+venv/
+env/
+ENV/
+.env
+
+# --- Python ---
+__pycache__/
+*.py[cod]
+*$py.class
+*.egg-info/
+.eggs/
+dist/
+build/
+*.egg
+
+# --- OS / editor ---
+.DS_Store
+.vscode/
+.idea/
+*.swp
+
+# --- Large / binary artifacts (do NOT push) ---
+# Trained checkpoints live on CCI GPUs, not in git
+*.pth
+*.pt
+*.ckpt
+*.pkl
+basicmodel_neutral_lbs_10_207_0_v1.1.0.pkl
+
+# Heatmaps / tensors / archives
+*.npy
+*.npz
+*.h5
+*.tar
+*.tar.gz
+*.zip
+*.lock
+
+# Local data + training outputs
+/data/
+mmAP-slim/output/
+mmAP-slim/reconstruction_output/
+/outputs/
+/checkpoints/
+/logs*/
+/results/
+/demo_out/
+/fall_out/
+/example_data/
+/hmr2_training_data/
+/hmr2_evaluation_data/
+
+# Logs
+*.log
+token_channel.csv
