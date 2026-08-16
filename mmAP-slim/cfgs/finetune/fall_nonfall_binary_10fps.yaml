@@ -1,0 +1,22 @@
+# Binary fall/non-fall on matched 10fps spectrogram heatmaps.
+in_domains: angle-doppler-range
+model: multivit_base
+use_mean_pooling: true
+drop_path: 0.1
+opt: adamw
+blr: 0.0005
+weight_decay: 0.05
+warmup_epochs: 3
+device: cuda
+epochs: 30
+batch_size: 64
+num_workers: 4
+pin_mem: true
+heatmap_aug: false
+nb_classes: 2
+log_wandb: false
+data_set: heatmap
+# Overridden by CLI on CCI:
+data_path: /PATH/TO/fall_nonfall_binary_10fps/dataset/train
+eval_data_path: /PATH/TO/fall_nonfall_binary_10fps/dataset/val
+output_dir: output/finetune/fall_nonfall_binary_10fps

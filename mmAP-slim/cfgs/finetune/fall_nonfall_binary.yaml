@@ -1,0 +1,26 @@
+# Binary fall/non-fall fine-tuning on SMPL-derived radar heatmaps.
+# Dataset: prepare_binary_fall_dataset.py --balance-to-fall --write-windows
+in_domains: angle-doppler-range
+model: multivit_base
+use_mean_pooling: true
+drop_path: 0.1
+epochs: 30
+opt: adamw
+blr: 0.0005
+weight_decay: 0.05
+warmup_epochs: 3
+device: cuda
+epochs: 30
+batch_size: 32
+num_workers: 4
+pin_mem: true
+heatmap_aug: false
+data_path: /PATH/TO/fall_nonfall_binary_balanced/dataset/train
+eval_data_path: /PATH/TO/fall_nonfall_binary_balanced/dataset/val
+data_set: heatmap
+data_path: /Volumes/data/fall down/radar_data/fall_nonfall_binary_balanced/dataset/train
+eval_data_path: /Volumes/data/fall down/radar_data/fall_nonfall_binary_balanced/dataset/val
+nb_classes: 2
+log_wandb: false
+device: mps
+output_dir: output/finetune/fall_nonfall_binary_smpl

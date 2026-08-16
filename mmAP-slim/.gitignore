@@ -15,4 +15,6 @@ pretrained/
 .conda/*
 .venv/*
 test/*
-cfgs/*
+# cfgs/*  # DO NOT ignore — train YAMLs must be in git
+!cfgs/
+!cfgs/**/*.yaml
