@@ -35,7 +35,7 @@ Clips were labeled and organized into a structured dataset so they could be proc
 Each video clip was reconstructed into a **3D human mesh** — a time sequence of 3D body geometry — so the radar simulator has a moving body to “illuminate,” not RGB pixels.
 
 **Models / tools at this stage:**
-- **[SAM 3D Body](https://huggingface.co/facebook/sam-3d-body-vith)** (`facebook/sam-3d-body-vith` on Hugging Face) — Meta’s promptable full-body **3D human mesh recovery (HMR)** model for robust in-the-wild pose/mesh estimation ([model card](https://huggingface.co/facebook/sam-3d-body-vith), code: [facebookresearch/sam-3d-body](https://github.com/facebookresearch/sam-3d-body))
+- **[SAM 3D Body]** (`facebook/sam-3d-body-vith` on Hugging Face) — Meta’s promptable full-body **3D human mesh recovery (HMR)** model for robust in-the-wild pose/mesh estimation.
 - **SMPL** (Skinned Multi-Person Linear model) — compact parametric body shape/pose representation used as the body prior for downstream mesh export and radar simulation (separately licensed; **not** redistributed in this repo)
 
 Supporting scripts in this repo clean and export motion for simulation:
